@@ -64,7 +64,7 @@ export const other = {
   startAngleBracket: /^</,
   endAngleBracket: />$/,
   pedanticHrefTitle: /^([^'"]*[^\s])\s+(['"])(.*)\2/,
-  unicodeAlphaNumeric: /[\p{L}\p{N}]/u,
+  unicodeAlphaNumeric: /[A-Za-z0-9]/,
   escapeTest: /[&<>"']/,
   escapeReplace: /[&<>"']/g,
   escapeTestNoEncode: /[<>"']|&(?!(#\d{1,7}|#[Xx][a-fA-F0-9]{1,6}|\w+);)/,
@@ -267,16 +267,16 @@ const br = /^( {2,}|\\)\n(?!\s*$)/;
 const inlineText = /^(`+|[^`])(?:(?= {2,}\n)|[\s\S]*?(?:(?=[\\<!\[`*_]|\b_|$)|[^ ](?= {2,}\n)))/;
 
 // list of unicode punctuation marks, plus any missing characters from CommonMark spec
-const _punctuation = /[\p{P}\p{S}]/u;
-const _punctuationOrSpace = /[\s\p{P}\p{S}]/u;
-const _notPunctuationOrSpace = /[^\s\p{P}\p{S}]/u;
+const _punctuation = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
+const _punctuationOrSpace = /[\s!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
+const _notPunctuationOrSpace = /\w/;
 const punctuation = edit(/^((?![*_])punctSpace)/, 'u')
   .replace(/punctSpace/g, _punctuationOrSpace).getRegex();
 
 // GFM allows ~ inside strong and em for strikethrough
-const _punctuationGfmStrongEm = /(?!~)[\p{P}\p{S}]/u;
-const _punctuationOrSpaceGfmStrongEm = /(?!~)[\s\p{P}\p{S}]/u;
-const _notPunctuationOrSpaceGfmStrongEm = /(?:[^\s\p{P}\p{S}]|~)/u;
+const _punctuationGfmStrongEm = /\w/;
+const _punctuationOrSpaceGfmStrongEm = /(?!~)[\s!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
+const _notPunctuationOrSpaceGfmStrongEm = /[\w~]/;
 
 // sequences em should skip over [title](link), `code`, <html>
 const blockSkip = edit(/link|precode-code|html/, 'g')
