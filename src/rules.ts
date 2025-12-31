@@ -274,7 +274,7 @@ const punctuation = edit(/^((?![*_])punctSpace)/, 'u')
   .replace(/punctSpace/g, _punctuationOrSpace).getRegex();
 
 // GFM allows ~ inside strong and em for strikethrough
-const _punctuationGfmStrongEm = /\w/;
+const _punctuationGfmStrongEm = /[\s!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
 const _punctuationOrSpaceGfmStrongEm = /(?!~)[\s!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
 const _notPunctuationOrSpaceGfmStrongEm = /[\w~]/;
 
